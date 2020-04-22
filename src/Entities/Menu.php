@@ -1,8 +1,9 @@
 <?php
 
-namespace Tir\Store\Attribute\Entities;
+namespace Tir\Menu\Entities;
 
 use Astrotomic\Translatable\Translatable;
+use Modules\Menu\Entities\MenuItem;
 use Tir\Crud\Support\Eloquent\CrudModel;
 use Tir\Store\Category\Entities\Category;
 
@@ -12,12 +13,21 @@ class Menu extends CrudModel
 
     use Translatable;
 
+    /**
+     * The attribute show route name
+     * and we use in fieldTypes and controllers
+     *
+     * @var string
+     */
+    public static $routeName = 'menu';
 
-    public static $routeName = 'attribute';
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['name', 'is_active'];
 
-    protected $fillable = ['name', 'is_filterable','attribute_set_id'];
-
-    protected $with = ['translations'];
 
     /**
      * The attributes that should be cast to native types.
@@ -25,15 +35,30 @@ class Menu extends CrudModel
      * @var array
      */
     protected $casts = [
-        'is_filterable' => 'boolean',
+        'is_active' => 'boolean',
     ];
 
 
-
+    /**
+     * The attributes that are translatable.
+     *
+     * @var array
+     */
     public $translatedAttributes = ['name'];
 
+    /**
+     * The relations to eager load on every query.
+     *
+     * @var array
+     */
+    protected $with = ['translations'];
 
 
+    /**
+     * This function return array for validation
+     *
+     * @return array
+     */
     public function getValidation()
     {
         return [
@@ -42,16 +67,21 @@ class Menu extends CrudModel
     }
 
 
+    /**
+     * This function return an object of field
+     * and we use this for generate admin panel page
+     * @return Object
+     */
     public function getFields()
     {
         $fields = [
             [
-                'name' => 'basic-information',
+                'name' => 'basic_information',
                 'type' => 'group',
                 'visible'    => 'ce',
                 'tabs'=>  [
                     [
-                        'name'  => 'menu-information',
+                        'name'  => 'menu_information',
                         'type'  => 'tab',
                         'visible'    => 'ce',
                         'fields' => [
@@ -63,30 +93,27 @@ class Menu extends CrudModel
                             [
                                 'name'      => 'name',
                                 'type'      => 'text',
-                                'translation'   => true,
-                                'visible'   => 'icef',
-                            ]
+                                'visible'   => 'ice',
+                            ],
+                            [
+                                'name'       => 'is_active',
+                                'type'       => 'select',
+                                'data'       => ['1'=>trans('menu::panel.yes'),'0'=>trans('menu::panel.no')],
+                                'visible'    => 'ce',
+                            ],
 
                         ]
                     ]
                 ]
             ]
         ];
-
-
         return json_decode(json_encode($fields));
     }
 
 
-    public function values()
+    public function menuItems()
     {
-        return $this->hasMany(AttributeValue::class)->orderBy('position');
+        return $this->hasMany(MenuItem::class)->orderByRaw('-position DESC');
     }
-
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class)->orderBy('position');
-    }
-
 
 }

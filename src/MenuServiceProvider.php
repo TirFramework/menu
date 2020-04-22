@@ -34,11 +34,11 @@ class MenuServiceProvider extends ServiceProvider
         $this->loadRoutesFrom(__DIR__.'/Routes/admin.php');
 
 //
-//        $this->loadMigrationsFrom(__DIR__ .'/Database/Migrations');
+        $this->loadMigrationsFrom(__DIR__ .'/Database/Migrations');
 //
-//        $this->loadViewsFrom(__DIR__.'/Resources/Views', 'user');
+        $this->loadViewsFrom(__DIR__.'/Resources/Views', 'menu');
 //
-//        $this->loadTranslationsFrom(__DIR__.'/Resources/Lang/', 'user');
+        $this->loadTranslationsFrom(__DIR__.'/Resources/Lang/', 'menu');
 
     }
 }

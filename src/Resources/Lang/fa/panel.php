@@ -1,22 +1,20 @@
 <?php
 
 return [
-    'base-information' => 'اطلاعات پایه',
-    'user-information' => 'اطلاعات کاربر',
-    'user'             => 'کاربر',
-    'new-user'         => 'کاربر جدید',
-    'users'            => 'کاربران',
-    'id'               => 'کد',
-    'name'             => 'نام',
-    'email'            => 'ایمیل',
-    'roles'            => 'نقش‌ها',
-    'status'           => 'وضعیت',
-    'password'         => 'گذرواژه',
-    'enabled'          => 'فعال',
-    'disabled'         => 'غیرفعال',
-    'type'             => 'نوع',
-    'admin'            => 'مدیر سایت',
-    'mobile'           => 'شماره تلفن همراه',
-    'new_user'         => 'کاربر جدید',
+    'basic_information' => 'اطلاعات پایه',
+    'menu_information'  => 'اطلاعات منو',
+    'menu'              => 'منو',
+    'menus'             => 'منوها',
+    'new_menu'          => 'منو جدید',
+    'id'                => 'کد',
+    'name'              => 'نام',
+    'action'            => 'عملیات',
+    'yes'               => 'بله',
+    'no'                => 'خیر',
+    'is_active'         => 'فعال',
+    'category'          => 'دسته بندی',
+    'page'              => 'صفحه',
+    'url'               => 'URL'
+
 
 ];

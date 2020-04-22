@@ -1,8 +1,8 @@
 <?php
 
-namespace Tir\User\Controllers;
+namespace Tir\Menu\Controllers;
 
-use Tir\User\Entities\Menu;
+use Tir\Menu\Entities\Menu;
 use Tir\Crud\Controllers\CrudController;
 
 class AdminMenuController extends CrudController
