@@ -3,12 +3,8 @@
 namespace Tir\Menu;
 
 
-use Tir\User\Middlewares\IsAdmin;
 use Illuminate\Support\ServiceProvider;
-use Tir\User\Console\UserMigrateCommand;
-use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
-use Tir\User\Middlewares\IsGuest;
-use Tir\User\Middlewares\IsUser;
+
 
 class MenuServiceProvider extends ServiceProvider
 {
