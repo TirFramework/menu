@@ -3,7 +3,6 @@
 namespace Tir\Menu\Entities;
 
 use Astrotomic\Translatable\Translatable;
-use Modules\Menu\Entities\MenuItem;
 use Tir\Crud\Support\Eloquent\CrudModel;
 use Tir\Store\Category\Entities\Category;
 
@@ -110,6 +109,21 @@ class Menu extends CrudModel
         return json_decode(json_encode($fields));
     }
 
+    //Additional methods //////////////////////////////////////////////////////////////////////////////////////////////
+
+    public static function for($menuId)
+    {
+        return static::findOrNew($menuId)
+            ->menuItems()
+            ->with(['category', 'page'])
+            ->get()
+            ->noCleaning()
+            ->nest();
+    }
+
+
+
+    //Relations methods ///////////////////////////////////////////////////////////////////////////////////////////////
 
     public function menuItems()
     {

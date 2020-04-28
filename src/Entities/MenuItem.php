@@ -4,14 +4,14 @@ namespace Tir\Menu\Entities;
 
 use Astrotomic\Translatable\Translatable;
 use Tir\Crud\Support\Eloquent\CrudModel;
-//use TypiCMS\NestableTrait;
-//use Modules\Page\Entities\Page;
-//use Modules\Support\Eloquent\Model;
+use Tir\Crud\Support\Facades\Crud;
+use Tir\Page\Entities\Page;
 use Tir\Store\Category\Entities\Category;
+use TypiCMS\NestableTrait;
 
 class MenuItem extends CrudModel
 {
-    use Translatable;
+    use Translatable, NestableTrait;
 
     /**
      * The attribute show route name
@@ -205,16 +205,7 @@ class MenuItem extends CrudModel
     }
 
 
-
-
-
-
-
-
-
-
-
-
+    //Relations ///////////////////////////////////////////////////////////////////////////////////////////////////////
     public function menu()
     {
         return $this->belongsTo(Menu::class);
@@ -316,7 +307,7 @@ class MenuItem extends CrudModel
             return '#';
         }
 
-        return localized_url(locale(), $this->getAttributeFromArray('url'));
+        return Crud::localized_url(Crud::locale(), $this->getAttributeFromArray('url'));
     }
 
     /**
