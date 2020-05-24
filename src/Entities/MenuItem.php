@@ -146,7 +146,7 @@ class MenuItem extends CrudModel
                             [
                                 'name' => 'page_id',
                                 'type' => 'relation',
-                                'relation' => ['page', 'title'],
+                                'relation' => ['page', 'name'],
                                 'visible' => 'ce'
                             ],
                             [
