@@ -143,12 +143,12 @@ class MenuItem extends CrudModel
                                 'relation' => ['menu', 'name'],
                                 'visible' => 'ce'
                             ],
-//                            [
-//                                'name' => 'page_id',
-//                                'type' => 'relation',
-//                                'relation' => ['page', 'name'],
-//                                'visible' => 'ce'
-//                            ],
+                            [
+                                'name' => 'page_id',
+                                'type' => 'relation',
+                                'relation' => ['page', 'title'],
+                                'visible' => 'ce'
+                            ],
                             [
                                 'name'      => 'parent_id',
                                 'type'      => 'text',
@@ -174,7 +174,7 @@ class MenuItem extends CrudModel
                                 'type' => 'select',
                                 'data' => ['category' => trans('menu::panel.category'),
                                            'page'     => trans('menu::panel.page'),
-                                    'url', trans('menu::panel.url')],
+                                           'url'      => trans('menu::panel.url')],
                                 'visible' => 'ce'
                             ],
                             [
