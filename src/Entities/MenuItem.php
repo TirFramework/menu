@@ -132,30 +132,13 @@ class MenuItem extends CrudModel
                                 'visible'   => 'ice',
                             ],
                             [
-                                'name' => 'category_id',
-                                'type' => 'relation',
-                                'relation' => ['category', 'name'],
-                                'visible' => 'ce'
-                            ],
-                            [
                                 'name' => 'menu_id',
                                 'type' => 'relation',
                                 'relation' => ['menu', 'name'],
                                 'visible' => 'ce'
                             ],
                             [
-                                'name' => 'page_id',
-                                'type' => 'relation',
-                                'relation' => ['page', 'title'],
-                                'visible' => 'ce'
-                            ],
-                            [
                                 'name'      => 'parent_id',
-                                'type'      => 'text',
-                                'visible'   => 'ce',
-                            ],
-                            [
-                                'name'      => 'url',
                                 'type'      => 'text',
                                 'visible'   => 'ce',
                             ],
@@ -172,11 +155,80 @@ class MenuItem extends CrudModel
                             [
                                 'name' => 'type',
                                 'type' => 'select',
+                                'placeholder' => 'select',
                                 'data' => ['category' => trans('menu::panel.category'),
                                            'page'     => trans('menu::panel.page'),
                                            'url'      => trans('menu::panel.url')],
+
+                                'script'    => '
+                                
+                                    $(`[name="category_id"]`).parents(".form-group").addClass("d-none");
+                                    $(`[name="page_id"]`).parents(".form-group").addClass("d-none");
+                                    $(`[name="url"]`).parents(".form-group").addClass("d-none");
+
+                                    typeSelect( $(`[name="type"]`).val() );
+
+                                    console.log( $(`[name="type"]`).val() );
+                                    
+                                    $(`[name="type"]`).on("change", function() {
+                                        typeSelect( $(this).val() );
+                                    });
+
+                                    function typeSelect(element){
+                                        if(element == "category"){
+
+                                            $(`[name="category_id"]`).parents(".form-group").removeClass("d-none");
+                                            $(`[name="page_id"]`).parents(".form-group").addClass("d-none");
+                                            $(`[name="url"]`).parents(".form-group").addClass("d-none");
+
+                                        } 
+
+                                        if(element == "page"){
+
+                                            $(`[name="category_id"]`).parents(".form-group").addClass("d-none");
+                                            $(`[name="page_id"]`).parents(".form-group").removeClass("d-none");
+                                            $(`[name="url"]`).parents(".form-group").addClass("d-none");
+
+                                        } 
+
+                                        if(element == "url"){
+
+                                            $(`[name="category_id"]`).parents(".form-group").addClass("d-none");
+                                            $(`[name="page_id"]`).parents(".form-group").addClass("d-none");
+                                            $(`[name="url"]`).parents(".form-group").removeClass("d-none");
+
+                                        } 
+                                    }
+                                ',
                                 'visible' => 'ce'
                             ],
+
+
+
+
+                            [
+                                'name'      => 'url',
+                                'type'      => 'text',
+                                'visible'   => 'ce',
+                            ],
+
+                            [
+                                'name' => 'category_id',
+                                'type' => 'relation',
+                                'relation' => ['category', 'name'],
+                                'visible' => 'ce'
+                            ],
+
+                            [
+                                'name' => 'page_id',
+                                'type' => 'relation',
+                                'relation' => ['page', 'title'],
+                                'visible' => 'ce'
+                            ],
+
+
+
+
                             [
                                 'name'       => 'is_root',
                                 'type'       => 'select',
