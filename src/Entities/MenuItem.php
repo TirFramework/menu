@@ -359,7 +359,10 @@ class MenuItem extends CrudModel
             return '#';
         }
 
-        return Crud::localized_url(Crud::locale(), $this->getAttributeFromArray('url'));
+        //Todo:check localized_url
+//        return Crud::localized_url(Crud::locale(), $this->getAttributeFromArray('url'));
+
+        return $this->getAttributeFromArray('url');
     }
 
     /**
