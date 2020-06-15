@@ -19,7 +19,7 @@ class MenuItem extends CrudModel
      *
      * @var string
      */
-    public static $routeName = 'menuItems';
+    public static $routeName = 'menuItem';
 
     /**
      * The table associated with the model.
