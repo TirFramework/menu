@@ -4,6 +4,7 @@ namespace Tir\Menu\Entities;
 
 use Astrotomic\Translatable\Translatable;
 use Tir\Crud\Support\Eloquent\CrudModel;
+use Tir\Crud\Support\Eloquent\HasDynamicRelation;
 use Tir\Crud\Support\Facades\Crud;
 use Tir\Page\Entities\Page;
 use Tir\Store\Category\Entities\Category;
@@ -11,7 +12,7 @@ use TypiCMS\NestableTrait;
 
 class MenuItem extends CrudModel
 {
-    use Translatable, NestableTrait;
+    use Translatable, NestableTrait, HasDynamicRelation;
 
     /**
      * The attribute show route name
@@ -61,8 +62,8 @@ class MenuItem extends CrudModel
      * @var array
      */
     protected $casts = [
-        'is_root' => 'boolean',
-        'is_fluid' => 'boolean',
+        'is_root'   => 'boolean',
+        'is_fluid'  => 'boolean',
         'is_active' => 'boolean',
     ];
 
@@ -89,7 +90,6 @@ class MenuItem extends CrudModel
     }
 
 
-
     /**
      * This function return array for validation
      *
@@ -112,56 +112,55 @@ class MenuItem extends CrudModel
     {
         $fields = [
             [
-                'name' => 'basic_information',
-                'type' => 'group',
-                'visible'    => 'ce',
-                'tabs'=>  [
+                'name'    => 'basic_information',
+                'type'    => 'group',
+                'visible' => 'ce',
+                'tabs'    => [
                     [
-                        'name'  => 'menu_information',
-                        'type'  => 'tab',
-                        'visible'    => 'ce',
-                        'fields' => [
+                        'name'    => 'menu_information',
+                        'type'    => 'tab',
+                        'visible' => 'ce',
+                        'fields'  => [
                             [
-                                'name'       => 'id',
-                                'type'       => 'text',
-                                'visible'    => 'io',
+                                'name'    => 'id',
+                                'type'    => 'text',
+                                'visible' => 'io',
                             ],
                             [
-                                'name'      => 'name',
-                                'type'      => 'text',
-                                'visible'   => 'ice',
+                                'name'    => 'name',
+                                'type'    => 'text',
+                                'visible' => 'iec',
                             ],
                             [
-                                'name' => 'menu_id',
-                                'type' => 'relation',
+                                'name'     => 'menu_id',
+                                'type'     => 'relation',
                                 'relation' => ['menu', 'name'],
-                                'visible' => 'ce'
+                                'visible'  => 'ce'
                             ],
                             [
-                                'name'      => 'parent_id',
-                                'type'      => 'text',
-                                'visible'   => 'ce',
+                                'name'    => 'parent_id',
+                                'type'    => 'text',
+                                'visible' => 'ce',
                             ],
                             [
-                                'name'      => 'target',
-                                'type'      => 'text',
-                                'visible'   => 'ce',
+                                'name'    => 'target',
+                                'type'    => 'text',
+                                'visible' => 'ce',
                             ],
                             [
-                                'name'      => 'position',
-                                'type'      => 'position',
-                                'visible'   => 'ce',
+                                'name'    => 'position',
+                                'type'    => 'position',
+                                'visible' => 'ce',
                             ],
                             [
-                                'name' => 'type',
-                                'type' => 'select',
+                                'name'        => 'type',
+                                'type'        => 'select',
                                 'placeholder' => 'select',
-                                'data' => ['category' => trans('menu::panel.category'),
-                                           'page'     => trans('menu::panel.page'),
-                                           'url'      => trans('menu::panel.url')],
+                                'data'        => ['category' => trans('menu::panel.category'),
+                                                  'page'     => trans('menu::panel.page'),
+                                                  'url'      => trans('menu::panel.url')],
 
-                                'script'    => '
-                                
+                                'script'  => '
                                     $(`[name="category_id"]`).parents(".form-group").addClass("d-none");
                                     $(`[name="page_id"]`).parents(".form-group").addClass("d-none");
                                     $(`[name="url"]`).parents(".form-group").addClass("d-none");
@@ -204,48 +203,44 @@ class MenuItem extends CrudModel
                             ],
 
 
-
-
                             [
-                                'name'      => 'url',
-                                'type'      => 'text',
-                                'visible'   => 'ce',
+                                'name'    => 'url',
+                                'type'    => 'text',
+                                'visible' => 'ce',
                             ],
 
                             [
-                                'name' => 'category_id',
-                                'type' => 'relation',
+                                'name'     => 'category_id',
+                                'type'     => 'relation',
                                 'relation' => ['category', 'name'],
-                                'visible' => 'ce'
+                                'visible'  => 'ce'
                             ],
 
                             [
-                                'name' => 'page_id',
-                                'type' => 'relation',
+                                'name'     => 'page_id',
+                                'type'     => 'relation',
                                 'relation' => ['page', 'name'],
-                                'visible' => 'ce'
+                                'visible'  => 'ce'
                             ],
 
 
-
-
                             [
-                                'name'       => 'is_root',
-                                'type'       => 'select',
-                                'data'       => ['1'=>trans('menu::panel.yes'),'0'=>trans('menu::panel.no')],
-                                'visible'    => 'ce',
+                                'name'    => 'is_root',
+                                'type'    => 'select',
+                                'data'    => ['1' => trans('menu::panel.yes'), '0' => trans('menu::panel.no')],
+                                'visible' => 'ce',
                             ],
                             [
-                                'name'       => 'is_fluid',
-                                'type'       => 'select',
-                                'data'       => ['1'=>trans('menu::panel.yes'),'0'=>trans('menu::panel.no')],
-                                'visible'    => 'ce',
+                                'name'    => 'is_fluid',
+                                'type'    => 'select',
+                                'data'    => ['1' => trans('menu::panel.yes'), '0' => trans('menu::panel.no')],
+                                'visible' => 'ce',
                             ],
                             [
-                                'name'       => 'is_active',
-                                'type'       => 'select',
-                                'data'       => ['1'=>trans('menu::panel.yes'),'0'=>trans('menu::panel.no')],
-                                'visible'    => 'ce',
+                                'name'    => 'is_active',
+                                'type'    => 'select',
+                                'data'    => ['1' => trans('menu::panel.yes'), '0' => trans('menu::panel.no')],
+                                'visible' => 'ce',
                             ]
 
                         ]
@@ -266,16 +261,6 @@ class MenuItem extends CrudModel
     public function children()
     {
         return $this->hasMany(MenuItem::class, 'parent_id');
-    }
-
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
-
-    public function page()
-    {
-        return $this->belongsTo(Page::class);
     }
 
     /**

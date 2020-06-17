@@ -16,6 +16,7 @@ class MenuServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->app->register(EventServiceProvider::class);
 
     }
 
@@ -45,4 +46,6 @@ class MenuServiceProvider extends ServiceProvider
         $menu->item('system.menu.items')->title('menu::panel.items')->route('menuItem.index')->add();
 
     }
+
+
 }
