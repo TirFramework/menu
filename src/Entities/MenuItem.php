@@ -153,6 +153,24 @@ class MenuItem extends CrudModel
                                 'visible' => 'ce',
                             ],
                             [
+                                'name'    => 'is_root',
+                                'type'    => 'select',
+                                'data'    => ['1' => trans('menu::panel.yes'), '0' => trans('menu::panel.no')],
+                                'visible' => 'ce',
+                            ],
+                            [
+                                'name'    => 'is_fluid',
+                                'type'    => 'select',
+                                'data'    => ['1' => trans('menu::panel.yes'), '0' => trans('menu::panel.no')],
+                                'visible' => 'ce',
+                            ],
+                            [
+                                'name'    => 'is_active',
+                                'type'    => 'select',
+                                'data'    => ['1' => trans('menu::panel.yes'), '0' => trans('menu::panel.no')],
+                                'visible' => 'ce',
+                            ],
+                            [
                                 'name'        => 'type',
                                 'type'        => 'select',
                                 'placeholder' => 'select',
@@ -201,54 +219,17 @@ class MenuItem extends CrudModel
                                 ',
                                 'visible' => 'ce'
                             ],
-
-
                             [
                                 'name'    => 'url',
                                 'type'    => 'text',
                                 'visible' => 'ce',
-                            ],
-
-                            [
-                                'name'     => 'category_id',
-                                'type'     => 'relation',
-                                'relation' => ['category', 'name'],
-                                'visible'  => 'ce'
-                            ],
-
-                            [
-                                'name'     => 'page_id',
-                                'type'     => 'relation',
-                                'relation' => ['page', 'name'],
-                                'visible'  => 'ce'
-                            ],
-
-
-                            [
-                                'name'    => 'is_root',
-                                'type'    => 'select',
-                                'data'    => ['1' => trans('menu::panel.yes'), '0' => trans('menu::panel.no')],
-                                'visible' => 'ce',
-                            ],
-                            [
-                                'name'    => 'is_fluid',
-                                'type'    => 'select',
-                                'data'    => ['1' => trans('menu::panel.yes'), '0' => trans('menu::panel.no')],
-                                'visible' => 'ce',
-                            ],
-                            [
-                                'name'    => 'is_active',
-                                'type'    => 'select',
-                                'data'    => ['1' => trans('menu::panel.yes'), '0' => trans('menu::panel.no')],
-                                'visible' => 'ce',
                             ]
-
                         ]
                     ]
                 ]
             ]
         ];
-        return json_decode(json_encode($fields));
+        return $fields;
     }
 
 
