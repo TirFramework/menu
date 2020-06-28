@@ -99,6 +99,12 @@ class MenuItem extends CrudModel
     {
         return [
             'name' => 'required',
+            'target' => 'required',
+            'type' => 'required',
+            'menu_id' => 'required',
+            'is_root' => 'required',
+            'is_fluid' => 'required',
+            'is_active' => 'required',
         ];
     }
 
@@ -133,18 +139,21 @@ class MenuItem extends CrudModel
                             ],
                             [
                                 'name'     => 'menu_id',
+                                'display'  => 'menu',
                                 'type'     => 'relation',
                                 'relation' => ['menu', 'name'],
                                 'visible'  => 'ce'
                             ],
                             [
                                 'name'    => 'parent_id',
+                                'display'  => 'parent',
                                 'type'    => 'text',
                                 'visible' => 'ce',
                             ],
                             [
                                 'name'    => 'target',
-                                'type'    => 'text',
+                                'type'    => 'select',
+                                'data'  => ['_self'=>trans('menuItem::panel.self'), '_blank'=>trans('menuItem::panel.blank')],
                                 'visible' => 'ce',
                             ],
                             [
@@ -155,19 +164,19 @@ class MenuItem extends CrudModel
                             [
                                 'name'    => 'is_root',
                                 'type'    => 'select',
-                                'data'    => ['1' => trans('menu::panel.yes'), '0' => trans('menu::panel.no')],
+                                'data'    => ['1' => trans('menu::panel.yes'), 0 => trans('menu::panel.no')],
                                 'visible' => 'ce',
                             ],
                             [
                                 'name'    => 'is_fluid',
                                 'type'    => 'select',
-                                'data'    => ['1' => trans('menu::panel.yes'), '0' => trans('menu::panel.no')],
+                                'data'    => ['1' => trans('menu::panel.yes'), 0 => trans('menu::panel.no')],
                                 'visible' => 'ce',
                             ],
                             [
                                 'name'    => 'is_active',
                                 'type'    => 'select',
-                                'data'    => ['1' => trans('menu::panel.yes'), '0' => trans('menu::panel.no')],
+                                'data'    => ['1' => trans('menu::panel.yes'), 0 => trans('menu::panel.no')],
                                 'visible' => 'ce',
                             ],
                             [

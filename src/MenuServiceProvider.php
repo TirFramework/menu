@@ -31,6 +31,7 @@ class MenuServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__ .'/Database/Migrations');
         $this->loadViewsFrom(__DIR__.'/Resources/Views', 'menu');
         $this->loadTranslationsFrom(__DIR__.'/Resources/Lang/', 'menu');
+        $this->loadTranslationsFrom(__DIR__.'/Resources/Lang/', 'menuItem');
 
        $this->adminMenu();
 
