@@ -98,12 +98,12 @@ class MenuItem extends CrudModel
     public function getValidation()
     {
         return [
-            'name' => 'required',
-            'target' => 'required',
-            'type' => 'required',
-            'menu_id' => 'required',
-            'is_root' => 'required',
-            'is_fluid' => 'required',
+            'name'      => 'required',
+            'target'    => 'required',
+            'type'      => 'required',
+            'menu_id'   => 'required',
+            'is_root'   => 'required',
+            'is_fluid'  => 'required',
             'is_active' => 'required',
         ];
     }
@@ -146,14 +146,15 @@ class MenuItem extends CrudModel
                             ],
                             [
                                 'name'    => 'parent_id',
-                                'display'  => 'parent',
-                                'type'    => 'text',
-                                'visible' => 'ce',
+                                'display' => 'parent',
+                                'type'    => 'relation',
+                                'relation' => ['parent', 'name'],
+                                'visible'  => 'ce',
                             ],
                             [
                                 'name'    => 'target',
                                 'type'    => 'select',
-                                'data'  => ['_self'=>trans('menuItem::panel.self'), '_blank'=>trans('menuItem::panel.blank')],
+                                'data'    => ['_self' => trans('menuItem::panel.self'), '_blank' => trans('menuItem::panel.blank')],
                                 'visible' => 'ce',
                             ],
                             [
@@ -251,6 +252,12 @@ class MenuItem extends CrudModel
     public function children()
     {
         return $this->hasMany(MenuItem::class, 'parent_id');
+    }
+
+
+    public function parent()
+    {
+        return $this->belongsTo(MenuItem::class, 'parent_id');
     }
 
     /**
