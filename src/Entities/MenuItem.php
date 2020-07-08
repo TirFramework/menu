@@ -260,6 +260,11 @@ class MenuItem extends CrudModel
         return $this->belongsTo(MenuItem::class, 'parent_id');
     }
 
+    public function page()
+    {
+        return $this->belongsTo(Page::class);
+    }
+
     /**
      * Set the menu item's page id.
      *
