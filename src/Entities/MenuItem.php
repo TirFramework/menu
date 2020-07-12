@@ -116,7 +116,7 @@ class MenuItem extends CrudModel
      */
     public function getFields()
     {
-        $fields = [
+        return [
             [
                 'name'    => 'basic_information',
                 'type'    => 'group',
@@ -239,7 +239,6 @@ class MenuItem extends CrudModel
                 ]
             ]
         ];
-        return $fields;
     }
 
 
