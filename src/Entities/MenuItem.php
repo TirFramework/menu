@@ -112,7 +112,7 @@ class MenuItem extends CrudModel
     /**
      * This function return an object of field
      * and we use this for generate admin panel page
-     * @return Object
+     * @return array
      */
     public function getFields()
     {
