@@ -4,15 +4,11 @@ namespace Tir\Menu\Entities;
 
 use Astrotomic\Translatable\Translatable;
 use Tir\Crud\Support\Eloquent\CrudModel;
-use Tir\Crud\Support\Eloquent\HasDynamicRelation;
 use Tir\Crud\Support\Facades\Crud;
-use Tir\Page\Entities\Page;
-use Tir\Store\Category\Entities\Category;
-use TypiCMS\NestableTrait;
 
 class MenuItem extends CrudModel
 {
-    use Translatable, NestableTrait, HasDynamicRelation;
+    use Translatable;
 
     /**
      * The attribute show route name
@@ -44,27 +40,11 @@ class MenuItem extends CrudModel
     protected $fillable = [
         'name',
         'menu_id',
-        'category_id',
-        'page_id',
         'parent_id',
-        'type',
         'url',
         'target',
         'position',
-        'is_root',
-        'is_fluid',
-        'is_active',
-    ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'is_root'   => 'boolean',
-        'is_fluid'  => 'boolean',
-        'is_active' => 'boolean',
+        'status',
     ];
 
     /**
@@ -73,21 +53,6 @@ class MenuItem extends CrudModel
      * @var array
      */
     public $translatedAttributes = ['name'];
-
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-//        static::addGlobalScope('not_root', function ($query) {
-//            $query->where('is_root', false);
-//        });
-
-    }
 
 
     /**
@@ -99,12 +64,9 @@ class MenuItem extends CrudModel
     {
         return [
             'name'      => 'required',
-            'target'    => 'required',
             'type'      => 'required',
             'menu_id'   => 'required',
-            'is_root'   => 'required',
-            'is_fluid'  => 'required',
-            'is_active' => 'required',
+            'status'    => 'required',
         ];
     }
 
@@ -154,7 +116,7 @@ class MenuItem extends CrudModel
                             [
                                 'name'    => 'target',
                                 'type'    => 'select',
-                                'data'    => ['_self' => trans('menuItem::panel.self'), '_blank' => trans('menuItem::panel.blank')],
+                                'data'    => ['_blank' => trans('menuItem::panel.blank')],
                                 'visible' => 'ce',
                             ],
                             [
@@ -163,71 +125,10 @@ class MenuItem extends CrudModel
                                 'visible' => 'ce',
                             ],
                             [
-                                'name'    => 'is_root',
+                                'name'    => 'status',
                                 'type'    => 'select',
-                                'data'    => ['1' => trans('menu::panel.yes'), 0 => trans('menu::panel.no')],
+                                'data'    => ['published' => trans('menu::panel.published'), 'unpublished' => trans('menu::panel.unpublished')],
                                 'visible' => 'ce',
-                            ],
-                            [
-                                'name'    => 'is_fluid',
-                                'type'    => 'select',
-                                'data'    => ['1' => trans('menu::panel.yes'), 0 => trans('menu::panel.no')],
-                                'visible' => 'ce',
-                            ],
-                            [
-                                'name'    => 'is_active',
-                                'type'    => 'select',
-                                'data'    => ['1' => trans('menu::panel.yes'), 0 => trans('menu::panel.no')],
-                                'visible' => 'ce',
-                            ],
-                            [
-                                'name'        => 'type',
-                                'type'        => 'select',
-                                'placeholder' => 'select',
-                                'data'        => ['category' => trans('menu::panel.category'),
-                                                  'page'     => trans('menu::panel.page'),
-                                                  'url'      => trans('menu::panel.url')],
-
-                                'script'  => '
-                                    $(`[name="category_id"]`).parents(".form-group").addClass("d-none");
-                                    $(`[name="page_id"]`).parents(".form-group").addClass("d-none");
-                                    $(`[name="url"]`).parents(".form-group").addClass("d-none");
-
-                                    typeSelect( $(`[name="type"]`).val() );
-
-                                    console.log( $(`[name="type"]`).val() );
-                                    
-                                    $(`[name="type"]`).on("change", function() {
-                                        typeSelect( $(this).val() );
-                                    });
-
-                                    function typeSelect(element){
-                                        if(element == "category"){
-
-                                            $(`[name="category_id"]`).parents(".form-group").removeClass("d-none");
-                                            $(`[name="page_id"]`).parents(".form-group").addClass("d-none");
-                                            $(`[name="url"]`).parents(".form-group").addClass("d-none");
-
-                                        } 
-
-                                        if(element == "page"){
-
-                                            $(`[name="category_id"]`).parents(".form-group").addClass("d-none");
-                                            $(`[name="page_id"]`).parents(".form-group").removeClass("d-none");
-                                            $(`[name="url"]`).parents(".form-group").addClass("d-none");
-
-                                        } 
-
-                                        if(element == "url"){
-
-                                            $(`[name="category_id"]`).parents(".form-group").addClass("d-none");
-                                            $(`[name="page_id"]`).parents(".form-group").addClass("d-none");
-                                            $(`[name="url"]`).parents(".form-group").removeClass("d-none");
-
-                                        } 
-                                    }
-                                ',
-                                'visible' => 'ce'
                             ],
                             [
                                 'name'    => 'url',
@@ -253,37 +154,9 @@ class MenuItem extends CrudModel
         return $this->hasMany(MenuItem::class, 'parent_id');
     }
 
-
     public function parent()
     {
         return $this->belongsTo(MenuItem::class, 'parent_id');
-    }
-
-    public function page()
-    {
-        return $this->belongsTo(Page::class);
-    }
-
-    /**
-     * Set the menu item's page id.
-     *
-     * @param int $pageId
-     * @return void
-     */
-    public function setPageIdAttribute($pageId)
-    {
-        $this->attributes['page_id'] = $pageId;
-    }
-
-    /**
-     * Set the menu item's parent id.
-     *
-     * @param int $parentId
-     * @return void
-     */
-    public function setParentIdAttribute($parentId)
-    {
-        $this->attributes['parent_id'] = $parentId;
     }
 
     /**
@@ -296,90 +169,4 @@ class MenuItem extends CrudModel
         return $this->items->isNotEmpty();
     }
 
-    /**
-     * Determine if the menu item type is category.
-     *
-     * @return bool
-     */
-    public function isCategoryType()
-    {
-        return $this->type === 'category';
-    }
-
-    /**
-     * Determine if the menu item type is page.
-     *
-     * @return bool
-     */
-    public function isPageType()
-    {
-        return $this->type === 'page';
-    }
-
-    /**
-     * Determine if the menu item type is url.
-     *
-     * @return bool
-     */
-    public function isUrlType()
-    {
-        return $this->type === 'url';
-    }
-
-    /**
-     * Returns the public url for the menu item.
-     *
-     * @return string
-     */
-    public function url()
-    {
-        if ($this->isCategoryType()) {
-            return optional($this->category)->url();
-        }
-
-        if ($this->isPageType()) {
-            return optional($this->page)->url();
-        }
-
-        if ($this->getAttributeFromArray('url') === '#') {
-            return '#';
-        }
-
-        //Todo:check localized_url
-//        return Crud::localized_url(Crud::locale(), $this->getAttributeFromArray('url'));
-
-        return $this->getAttributeFromArray('url');
-    }
-
-    /**
-     * Get the root menu item for the given menu id.
-     *
-     * @param int $menuId
-     * @return $this
-     */
-    public static function root($menuId)
-    {
-        return static::withoutGlobalScope('not_root')
-            ->where('menu_id', $menuId)
-            ->firstOrFail();
-    }
-
-    /**
-     * Get the parents of the given menuId.
-     *
-     * @param int $menuId
-     * @param int $menuItemId
-     * @return array
-     */
-    public static function parents($menuId, $menuItemId)
-    {
-        return static::withoutGlobalScope('active')
-            ->where('id', '!=', $menuItemId)
-            ->where('menu_id', $menuId)
-            ->get()
-            ->noCleaning()
-            ->nest()
-            ->setIndent('¦–– ')
-            ->listsFlattened('name');
-    }
 }
