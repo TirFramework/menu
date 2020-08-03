@@ -64,7 +64,6 @@ class MenuItem extends CrudModel
     {
         return [
             'name'      => 'required',
-            'type'      => 'required',
             'menu_id'   => 'required',
             'status'    => 'required',
         ];
@@ -97,12 +96,14 @@ class MenuItem extends CrudModel
                             [
                                 'name'    => 'name',
                                 'type'    => 'text',
+                                'validation' => 'required',
                                 'visible' => 'iec',
                             ],
                             [
                                 'name'     => 'menu_id',
                                 'display'  => 'menu',
                                 'type'     => 'relation',
+                                'validation' => 'required',
                                 'relation' => ['menu', 'name'],
                                 'visible'  => 'ce'
                             ],
@@ -127,6 +128,7 @@ class MenuItem extends CrudModel
                             [
                                 'name'    => 'status',
                                 'type'    => 'select',
+                                'validation' => 'required',
                                 'data'    => ['published' => trans('menu::panel.published'), 'unpublished' => trans('menu::panel.unpublished')],
                                 'visible' => 'ce',
                             ],
