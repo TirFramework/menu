@@ -142,7 +142,7 @@ class MenuItem extends CrudModel
                                 'display'  => 'menu',
                                 'type'     => 'relation',
                                 'relation' => ['menu', 'name'],
-                                'visible'  => 'ce'
+                                'visible'  => 'icef'
                             ],
                             [
                                 'name'    => 'parent_id',
@@ -160,7 +160,7 @@ class MenuItem extends CrudModel
                             [
                                 'name'    => 'position',
                                 'type'    => 'position',
-                                'visible' => 'ce',
+                                'visible' => 'ice',
                             ],
                             [
                                 'name'    => 'is_root',
