@@ -92,13 +92,17 @@ class Menu extends CrudModel
                             [
                                 'name'      => 'name',
                                 'type'      => 'text',
+                                'placeholder'=> 'Please type a name for menu exampel "header"',
+                                'validation' => 'required',
                                 'visible'   => 'ice',
                             ],
                             [
-                                'name'       => 'is_active',
-                                'type'       => 'select',
-                                'data'       => ['1'=>trans('menu::panel.yes'),'0'=>trans('menu::panel.no')],
-                                'visible'    => 'ce',
+                                'name'    => 'status',
+                                'type'    => 'select',
+                                'placeholder'=> 'Please select the status',
+                                'validation' => 'required',
+                                'data'    => ['published' => trans('menu::panel.published'), 'unpublished' => trans('menu::panel.unpublished')],
+                                'visible' => 'ce',
                             ],
 
                         ]

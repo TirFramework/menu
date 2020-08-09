@@ -16,7 +16,7 @@ class CreateMenusTable extends Migration
 
         Schema::create('menus', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean('is_active');
+            $table->enum('status',['draft','published','unpublished'])->default('published');
             $table->timestamps();
         });
 
