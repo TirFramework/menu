@@ -27,6 +27,6 @@ class MegaMenu
 
     private function getMenus()
     {
-        return MenuModel::for($this->menuId)->where('menu_id', $this->menuId);
+        return MenuModel::for($this->menuId)->where('menu_id', $this->menuId)->where('is_active',1);
     }
 }
